@@ -7,10 +7,14 @@ class Otp_controller extends CI_Controller
         $this->load->model('Otp_model');
         $this->load->library('session');
     }
+
+    //used to load the intial view
     public function index()
     {
         $this->load->view('otp');
     }
+
+    //used to set the data and otp in session
     public function submit()
     {
         $otp = mt_rand(1000, 9999);
@@ -24,12 +28,16 @@ class Otp_controller extends CI_Controller
         $this->session->set_userdata('user_data', $data);
         redirect('Otp_controller/verifyUser');
     }
+
+    //Used to show the otp on verification page before login
     public function verifyUser()
     {
         $otp = $this->session->userdata('registration_otp');
         $data['otp'] = $otp;
         $this->load->view('otp_verification', $data);
     }
+
+    //used to load the page the after sign up
     public function success()
     {
         $user_data =  $this->session->userdata('user_data');
@@ -40,6 +48,8 @@ class Otp_controller extends CI_Controller
             $this->load->view('login');
         }
     }
+
+    //will check whether the user login or admin
     public function login()
     {
         $user_data = $this->session->userdata('user_data');
@@ -48,12 +58,14 @@ class Otp_controller extends CI_Controller
             redirect('Otp_controller/admin_dashboard');
         } else if (!empty($user_data) && $user_data['status'] == '0') {
             // User is already logged in, redirect to the admin dashboard or another page
-            redirect('Otp_controller/success');
+            redirect('Otp_controller/user_page');
         } else {
             $this->load->view('login');
         }
     }
 
+
+    //will used to login 
     public function loginForm()
     {
         $email = $this->input->post('email');
@@ -62,11 +74,20 @@ class Otp_controller extends CI_Controller
         if ($result == 1) {
             redirect('otp_controller/admin_dashboard');
         } else if ($result == 0) {
-            redirect('Otp_controller/success');
+            redirect('Otp_controller/user_page');
         } else {
             redirect('Otp_controller/login');
         }
     }
+
+    //Used to load the view 
+    public function user_page()
+    {
+        $this->load->view('user_home');
+    }
+
+
+    //used to how the admin dashboard 
     public function admin_dashboard()
     {
         // print_r($_SESSION);
@@ -77,11 +98,15 @@ class Otp_controller extends CI_Controller
             redirect('Otp_controller/login');
         }
     }
+
+    //used to logout 
     public function logout()
     {
         $this->session->unset_userdata('user_data'); // Unset the correct session variable
         redirect('Otp_controller/login');
     }
+
+    //used tp verify the otp before login
     public function verify()
     {
         $userdata = $this->session->userdata('user_data');
@@ -99,12 +124,16 @@ class Otp_controller extends CI_Controller
             }
         }
     }
+
+    //used to display all the data in the datatable
     public function getUsers()
     {
         $user = $this->Otp_model->getUserData();
         $data['data'] = $user;
         echo json_encode($data);
     }
+
+    //used to add message in the table of the database
     public function addMessage()
     {
         $data = array(
