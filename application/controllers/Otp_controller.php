@@ -41,7 +41,7 @@ class Otp_controller extends CI_Controller
     public function success()
     {
         $user_data =  $this->session->userdata('user_data');
-        if (!empty($user_data)  && ($user_data['status'] == 0)) {
+        if (!empty($user_data)) {
             // User is already logged in, redirect to the admin dashboard or another page
             $this->load->view('success_show');
         } else {
@@ -83,7 +83,12 @@ class Otp_controller extends CI_Controller
     //Used to load the view 
     public function user_page()
     {
-        $this->load->view('user_home');
+        $user = $this->session->userdata('user_data');
+        if (!empty($user) && ($user['status'] == '0')) {
+            $this->load->view('user_home');
+        } else {
+            redirect('Otp_controller/login');
+        }
     }
 
 
@@ -92,7 +97,7 @@ class Otp_controller extends CI_Controller
     {
         // print_r($_SESSION);
         $user_admin = $this->session->userdata('user_data');
-        if (!empty($user_admin) && $user_admin['status'] == '1') {
+        if (!empty($user_admin) && ($user_admin['status'] == '1')) {
             $this->load->view('admin');
         } else {
             redirect('Otp_controller/login');
@@ -110,8 +115,8 @@ class Otp_controller extends CI_Controller
     public function verify()
     {
         $userdata = $this->session->userdata('user_data');
-        $entered_otp = $this->input->posregistration_otpt('otp');
-        $stored_otp = $this->session->userdata('');
+        $entered_otp = $this->input->post('otp');
+        $stored_otp = $this->session->userdata('registration_otp');
         if ($entered_otp == $stored_otp) {
             $this->Otp_model->addInfo($userdata);
             $result = $this->db->affected_rows();
