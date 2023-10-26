@@ -15,7 +15,7 @@
     <title>Document</title>
 </head>
 <style>
-     .navbar {
+    .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -23,7 +23,8 @@
         color: #fff;
         padding: 10px 20px;
     }
- .navbar ul {
+
+    .navbar ul {
         list-style: none;
         margin: 0;
         padding: 0;
@@ -39,7 +40,7 @@
         color: #fff;
     }
 
-     .notification-icon {
+    .notification-icon {
         position: relative;
     }
 
@@ -82,17 +83,41 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+                    
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                <ol id="notify">
+                        <!-- <li><p id="notification"></p></li> -->
+                    </ol>
 
                 </div>
             </div>
         </div>
     </div>
-    
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "<?php echo base_url() ?>Otp_controller/getNotification",
+                dataType: "json",
+                method: 'GET',
+                success: function(res) {
+                    if (res) {
+                        var html = "";
+                        $.each(res, function(key, value) {
+                            html += "<li><a href='#'>"+value+"</a></li>";
+                        });
+                        $('#notify').html(html);
+
+                    }
+                },
+            });
+        });
+    </script>
+
 </body>
+
 
 </html>

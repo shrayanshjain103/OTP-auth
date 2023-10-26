@@ -38,4 +38,14 @@ class Otp_model extends CI_Model
         $result= $this->db->update('users');
         return $result;
     }
+    public function get_Notify($id){
+      $this->db->select('notify');
+      $this->db->where('id',$id);
+      $result=$this->db->get('users')->row_array();
+      if(!empty($result)){
+        return $result;
+      }else{
+        return 0;
+      }
+    }
 }

@@ -152,4 +152,14 @@ class Otp_controller extends CI_Controller
             echo 0;
         }
     }
+    public function getNotification(){
+        $user_id=$this->session->user_data['id'];
+        $result=$this->Otp_model->get_Notify($user_id);
+        // print_r($result);die;
+        if(!empty($result)){
+            echo json_encode($result);
+        }else{
+            echo 0;
+        }
+    }
 }
