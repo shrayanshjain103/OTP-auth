@@ -43,7 +43,7 @@ class Otp_controller extends CI_Controller
         $this->session->set_userdata('user_data', $data);
 
         // Update SMTP configuration
-        
+        $em = $data['email'];
         $config = array(
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.gmail.com',
@@ -59,10 +59,9 @@ class Otp_controller extends CI_Controller
         $this->email->set_newline("\r\n");
 
         // Email content
-        $htmlContent = '<h1>Sending email via SMTP server</h1>';
-        $htmlContent .= '<p>This email has sent via SMTP server from CodeIgniter application.</p>' . $otp;
+        $htmlContent = '<p>This is your OTP for Sign Up.</p>' . $otp;
 
-        $this->email->to('shrayanshjain103@gmail.com');
+        $this->email->to($em);
         $this->email->from('silverpeace69@gmail.com', 'shrayansh'); // Use a valid "from" email address
         $this->email->subject('How to send email via SMTP server in CodeIgniter');
         $this->email->message($htmlContent);

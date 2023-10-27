@@ -66,9 +66,9 @@
         <button type="submit">Verify OTP</button>
     </form>
     <!-- Display the OTP -->
-    <div id="showOTP">
+    <!-- <div id="showOTP">
         <h2>Your OTP:</h2>
         <?php echo $otp; ?>
-    </div>
+    </div> -->
 </body>
 </html>
