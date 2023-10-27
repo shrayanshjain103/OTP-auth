@@ -6,6 +6,7 @@ class Otp_controller extends CI_Controller
         parent::__construct();
         $this->load->model('Otp_model');
         $this->load->library('session');
+        $this->load->library('email');
     }
 
     //used to load the intial view
@@ -15,6 +16,41 @@ class Otp_controller extends CI_Controller
     }
 
     //used to set the data and otp in session
+    // public function submit()
+    // {
+    //     $otp = mt_rand(1000, 9999);
+    //     $this->session->set_userdata('registration_otp', $otp);
+    //     $data = array(
+    //         'email' => $this->input->post('email'),
+    //         'name' => $this->input->post('name'),
+    //         'password' => $this->input->post('password'),
+    //         'mobile' => $this->input->post('mobile')
+    //     );
+    //     $this->session->set_userdata('user_data', $data);
+    //     $config = array(
+    //         'protocol'  => 'smtp',
+    //         'smtp_host' => 'sandbox.smtp.mailtrap.io',
+    //         'smtp_port' => 2525,
+    //         'smtp_user' => 'cb3e3f897aee3c',
+    //         'smtp_pass' => '6f45aa86d56657',
+    //         'mailtype'  => 'html',
+    //         'charset'   => 'utf-8'
+    //     );
+    //     $this->email->initialize($config);
+    //     $this->email->set_mailtype("html");
+    //     $this->email->set_newline("\r\n");
+
+    //     //Email content
+    //     $htmlContent = '<h1>Sending email via SMTP server</h1>';
+    //     $this->email->to('shrayanshjain103@gmail.com');
+    //     $this->email->from('cb3e3f897aee3c', 'shrayansh');
+    //     $this->email->subject('How to send email via SMTP server in CodeIgniter');
+    //     $this->email->message($htmlContent);
+
+    //     //Send email
+    //     $this->email->send();
+    //     redirect('Otp_controller/verifyUser');
+    // }
     public function submit()
     {
         $otp = mt_rand(1000, 9999);
@@ -26,8 +62,39 @@ class Otp_controller extends CI_Controller
             'mobile' => $this->input->post('mobile')
         );
         $this->session->set_userdata('user_data', $data);
+
+        // Update SMTP configuration
+        
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465, // Use the appropriate port for your SMTP provider
+            'smtp_user' => 'silverpeace69@gmail.com',
+            'smtp_pass' => 'xvbp omcd qove rqae',
+            'mailtype'  => 'html',
+            // 'charset'   => 'utf-8'
+            'charset'   => 'iso-8859-1'
+        );
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+
+        // Email content
+        $htmlContent = '<h1>Sending email via SMTP server</h1>';
+        $htmlContent .= '<p>This email has sent via SMTP server from CodeIgniter application.</p>' . $otp;
+
+        $this->email->to('shrayanshjain103@gmail.com');
+        $this->email->from('silverpeace69@gmail.com', 'shrayansh'); // Use a valid "from" email address
+        $this->email->subject('How to send email via SMTP server in CodeIgniter');
+        $this->email->message($htmlContent);
+
+        // Send email and display debugging information
+        $this->email->send();
+        // print_r($this->email->print_debugger());die;
+
         redirect('Otp_controller/verifyUser');
     }
+
 
     //Used to show the otp on verification page before login
     public function verifyUser()
@@ -152,13 +219,14 @@ class Otp_controller extends CI_Controller
             echo 0;
         }
     }
-    public function getNotification(){
-        $user_id=$this->session->user_data['id'];
-        $result=$this->Otp_model->get_Notify($user_id);
+    public function getNotification()
+    {
+        $user_id = $this->session->user_data['id'];
+        $result = $this->Otp_model->get_Notify($user_id);
         // print_r($result);die;
-        if(!empty($result)){
+        if (!empty($result)) {
             echo json_encode($result);
-        }else{
+        } else {
             echo 0;
         }
     }
