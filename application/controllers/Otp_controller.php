@@ -27,28 +27,7 @@ class Otp_controller extends CI_Controller
     //         'mobile' => $this->input->post('mobile')
     //     );
     //     $this->session->set_userdata('user_data', $data);
-    //     $config = array(
-    //         'protocol'  => 'smtp',
-    //         'smtp_host' => 'sandbox.smtp.mailtrap.io',
-    //         'smtp_port' => 2525,
-    //         'smtp_user' => 'cb3e3f897aee3c',
-    //         'smtp_pass' => '6f45aa86d56657',
-    //         'mailtype'  => 'html',
-    //         'charset'   => 'utf-8'
-    //     );
-    //     $this->email->initialize($config);
-    //     $this->email->set_mailtype("html");
-    //     $this->email->set_newline("\r\n");
-
-    //     //Email content
-    //     $htmlContent = '<h1>Sending email via SMTP server</h1>';
-    //     $this->email->to('shrayanshjain103@gmail.com');
-    //     $this->email->from('cb3e3f897aee3c', 'shrayansh');
-    //     $this->email->subject('How to send email via SMTP server in CodeIgniter');
-    //     $this->email->message($htmlContent);
-
-    //     //Send email
-    //     $this->email->send();
+    // 
     //     redirect('Otp_controller/verifyUser');
     // }
     public function submit()
