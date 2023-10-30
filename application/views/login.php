@@ -212,6 +212,7 @@ body {
                         <span class="button__text">Log In Now</span>
                         <i class="button__icon fas fa-chevron-right"></i>
                     </button>
+                    
                 </form>
                 <div class="social-login">
                     <!-- <h3>log in via</h3> -->
