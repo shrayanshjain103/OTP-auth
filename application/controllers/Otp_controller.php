@@ -219,6 +219,8 @@ class Otp_controller extends CI_Controller
             echo 0;
         }
     }
+
+    //used to resend the otp 
     public function resendOTP(){
         $new_otp = mt_rand(100000, 999999);
         // print_r($new_otp);die;
