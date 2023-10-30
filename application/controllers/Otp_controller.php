@@ -219,4 +219,40 @@ class Otp_controller extends CI_Controller
             echo 0;
         }
     }
+    public function resendOTP(){
+        $new_otp = mt_rand(100000, 999999);
+        // print_r($new_otp);die;
+        $this->session->set_userdata('registration_otp', $new_otp);
+        $otp_timestemp = time();
+        $this->session->set_userdata('registration_otp_timestemp', $otp_timestemp);
+        // Update SMTP configuration
+        $em = $this->session->user_data['email'];
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465, // Use the appropriate port for your SMTP provider
+            'smtp_user' => 'silverpeace69@gmail.com',
+            'smtp_pass' => 'xvbp omcd qove rqae',
+            'mailtype'  => 'html',
+            // 'charset'   => 'utf-8'
+            'charset'   => 'iso-8859-1'
+        );
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+
+        // Email content
+        $htmlContent = '<p>This is your New OTP for Sign Up.</p>' . $new_otp;
+
+        $this->email->to($em);
+        $this->email->from('silverpeace69@gmail.com', 'shrayansh'); // Use a valid "from" email address
+        $this->email->subject('Here is your New OTP for the Registration');
+        $this->email->message($htmlContent);
+
+        // Send email and display debugging information
+        $this->email->send();
+        // print_r($this->email->print_debugger());die;
+
+        redirect('Otp_controller/verifyUser');
+    }
 }

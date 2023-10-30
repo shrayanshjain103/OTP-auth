@@ -65,7 +65,7 @@
         <input type="text" name="otp" required><br>
         <button type="submit">Verify OTP</button><br>
         <br>                 
-        <button type="submit"><a  href="#" style="text-decoration: none; color:white">Resend OTP</a></button>
+        <button type="submit"><a  href="<?php echo base_url()?>Otp_controller/resendOTP" style="text-decoration: none; color:white">Resend OTP</a></button>
     </form>
     <!-- Display the OTP -->
     <!-- <div id="showOTP">
