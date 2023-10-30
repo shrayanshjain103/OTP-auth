@@ -147,10 +147,10 @@
                 <input type="text" name="mobile" placeholder="Enter Mobile Number" required>
             </div>
             <div class="input-box button">
-                <input type="Submit" value="Register Now">
+                <input type="Submit" value="Register Now" style="border-radius: 30px">
             </div>
             <div class="text">
-                <h3>Already have an account? <a href="login">Login now</a></h3>
+                <h3>Already have an account? <a href="login" >Login now</a></h3>
             </div>
         </form>
     </div>

@@ -212,7 +212,7 @@
 						<i class="password-toggle fas fa-eye-slash" onclick="togglePasswordVisibility(this)"></i>
 					</div>
 
-					<button class="button login__submit">
+					<button class="button login__submit" >
 						<!-- <button type="submit">Login</button> -->
 						<span class="button__text">Log In Now</span>
 						<i class="button__icon fas fa-chevron-right"></i>
