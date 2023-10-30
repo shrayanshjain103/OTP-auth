@@ -34,6 +34,8 @@ class Otp_controller extends CI_Controller
     {
         $otp = mt_rand(1000, 9999);
         $this->session->set_userdata('registration_otp', $otp);
+        $otp_timestemp = time();
+        $this->session->set_userdata('registration_otp_timestemp', $otp_timestemp);
         $data = array(
             'email' => $this->input->post('email'),
             'name' => $this->input->post('name'),
@@ -63,7 +65,7 @@ class Otp_controller extends CI_Controller
 
         $this->email->to($em);
         $this->email->from('silverpeace69@gmail.com', 'shrayansh'); // Use a valid "from" email address
-        $this->email->subject('How to send email via SMTP server in CodeIgniter');
+        $this->email->subject('Here is your OTP for the Registration');
         $this->email->message($htmlContent);
 
         // Send email and display debugging information
@@ -77,9 +79,9 @@ class Otp_controller extends CI_Controller
     //Used to show the otp on verification page before login
     public function verifyUser()
     {
-        $otp = $this->session->userdata('registration_otp');
-        $data['otp'] = $otp;
-        $this->load->view('otp_verification', $data);
+        // $otp = $this->session->userdata('registration_otp');
+        // $data['otp'] = $otp;
+        $this->load->view('otp_verification');
     }
 
     //used to load the page the after sign up
@@ -161,7 +163,16 @@ class Otp_controller extends CI_Controller
     {
         $userdata = $this->session->userdata('user_data');
         $entered_otp = $this->input->post('otp');
+        $otp_timestemp = $this->session->userdata('registration_otp_timestemp');
+        $current_otp_timestemp = time();
         $stored_otp = $this->session->userdata('registration_otp');
+
+        if ($current_otp_timestemp -  $otp_timestemp > 900) {
+            $this->session->set_flashdata('error_message', 'OTP has expired. Please request a new OTP.');
+            // print('OPT has expired');
+            echo "OPT has Expired";
+            redirect('Otp_controller/verifyUser');
+        }
         if ($entered_otp == $stored_otp) {
             $this->Otp_model->addInfo($userdata);
             $result = $this->db->affected_rows();

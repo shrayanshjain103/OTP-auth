@@ -70,5 +70,10 @@
         <h2>Your OTP:</h2>
         <?php echo $otp; ?>
     </div> -->
+    <?php if ($this->session->flashdata('error_message')): ?>
+    <!-- <div class="error-message"> -->
+        <?php echo $this->session->flashdata('error_message'); ?>
+    <!-- </div> -->
+    <?php endif; ?> 
 </body>
 </html>
