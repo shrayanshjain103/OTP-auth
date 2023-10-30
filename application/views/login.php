@@ -1,71 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .login-container {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 52px;
-            text-align: center;
-            max-width: 400px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="post" action="<?= base_url('OTP_controller/loginForm') ?>">
-            <label for="email">email:</label>
-            <input type="email" name="email" required><br>
-
-            <label for="password">Password:</label>
-            <input type="password" name="password" required><br>
-
-            <button type="submit">Login</button>
-        </form>
-    </div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
@@ -268,11 +203,11 @@ body {
                         <input type="email" class="login__input" name="email" placeholder="Email" required>
                     </div>
                     <div class="login__field">
-                        <!-- <i class="login__icon fas fa-lock"></i>
-                        <input type="password" name="password" required><br> -->
+                         <i class="login__icon fas fa-lock"></i>
+                        <!-- <input type="password" name="password" required><br> -->
                         <input type="password" class="login__input" name="password" placeholder="Password" required>
                     </div>
-                    <button class="button login__submit" type="submit">
+                    <button class="button login__submit" >
                         <!-- <button type="submit">Login</button> -->
                         <span class="button__text">Log In Now</span>
                         <i class="button__icon fas fa-chevron-right"></i>
