@@ -63,7 +63,9 @@
     <form method="post"  action="<?= base_url('otp_controller/verify') ?>">
         <h2>Enter OTP:</h2>
         <input type="text" name="otp" required><br>
-        <button type="submit">Verify OTP</button>
+        <button type="submit">Verify OTP</button><br>
+        <br>                 
+        <button type="submit"><a  href="#" style="text-decoration: none; color:white">Resend OTP</a></button>
     </form>
     <!-- Display the OTP -->
     <!-- <div id="showOTP">
