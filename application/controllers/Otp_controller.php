@@ -255,7 +255,6 @@ class Otp_controller extends CI_Controller
             'smtp_user' => 'silverpeace69@gmail.com',
             'smtp_pass' => 'xvbp omcd qove rqae',
             'mailtype'  => 'html',
-            // 'charset'   => 'utf-8'
             'charset'   => 'iso-8859-1'
         );
         $this->email->initialize($config);
