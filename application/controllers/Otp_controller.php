@@ -287,7 +287,8 @@ class Otp_controller extends CI_Controller
         $this->email->message($htmlContent);
 
         // Send email and display debugging information
-        $this->email->send();
+        $result=$this->email->send();
+        echo json_encode($result);
     }
 
     function my_mPDF()
@@ -297,11 +298,13 @@ class Otp_controller extends CI_Controller
         $this->db->where('id', $id);
         $result['result'] = $this->db->get('users')->row_array();
         $filename = time() . "_userInfo.pdf";
+        $result['result']['status']= $result['result']['status']==0? 'user': 'admin';
 
         $html = $this->load->view('pdf_view', $result, true);
         $mpdf = new \Mpdf\Mpdf(['c', 'A4', '', '', 0, 0, 0, 0, 0, 0]);
         $dd =  $mpdf->WriteHTML($html);
         $email=$result['result']['email'];
+      
         // print_r($email);die;
        
         //download it D save F.

@@ -146,9 +146,15 @@
               data:{
                 id:id
               },
-             success: function(res){
-              console.log(res);    
-             },
+              success: function(res){
+                
+                if(res==1){
+                    alert('Email Has Been Sent');
+                }else{
+                    alert('Email Has Not Been Sent');
+
+                }
+              }
            });
         });
     });
