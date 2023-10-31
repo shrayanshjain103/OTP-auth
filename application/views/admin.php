@@ -32,6 +32,7 @@
                         <th width="20%">Email</th>
                         <th width="20%">Mobile Number</th>
                         <th width="20%">Notify</th>
+                        <th width="20%">Send Email</th>
                     </tr>
                 </thead>
             </table>
@@ -70,7 +71,7 @@
             "paging": true,
             "lengthMenu": [
                 [5, 2, 3, 4, 25, 50, 75, 100, -1],
-                [5 , 2, 3, 4, 25, 50, 75, 100, 'All']
+                [5, 2, 3, 4, 25, 50, 75, 100, 'All']
             ],
             "ajax": {
                 "url": "<?php echo base_url('Otp_controller/getUsers'); ?>",
@@ -92,6 +93,12 @@
                     "data": null,
                     "render": function(data, type, row) {
                         return '<button class="btn btn-success edit-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="' + data.id + '">NOTIFY</button>';
+                    }
+                },
+                {
+                    "data": null,
+                    "render": function(data, type, row) {
+                        return '<button class="btn btn-primary send" id="sendEmail" data-id="' + data.id + '">Send Email</button>';
                     }
                 }
             ]
@@ -123,11 +130,26 @@
                         window.location.reload();
                     }
                 },
-                error: function(){
+                error: function() {
                     alert('Having some Issue');
                     window.location.reload();
                 }
             });
+        });
+        $(document).on('click','.send',function(e) {
+            e.preventDefault;
+           var id=$(this).data('id');
+           $.ajax({
+              url:"<?php echo base_url()?>Otp_controller/preparePdf",
+              type:"POST",
+              dataType:"JSON",
+              data:{
+                id:id
+              },
+             success: function(res){
+                  
+             },
+           });
         });
     });
 </script>

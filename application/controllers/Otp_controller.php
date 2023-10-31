@@ -1,4 +1,6 @@
 <?php
+
+require APPPATH ."third_party\mpdf\autoload.php";
 class Otp_controller extends CI_Controller
 {
     public function __construct()
@@ -256,5 +258,12 @@ class Otp_controller extends CI_Controller
         // print_r($this->email->print_debugger());die;
 
         redirect('Otp_controller/verifyUser');
+    }
+    public function preparePdf(){
+        $id=$this->input->post('id');
+        $this->db->select('*');
+        $this->db->where('id',$id);
+        $result=$this->db->get('users')->row_array();
+         echo json_encode($result);
     }
 }
