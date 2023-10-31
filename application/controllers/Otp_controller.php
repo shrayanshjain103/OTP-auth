@@ -16,22 +16,6 @@ class Otp_controller extends CI_Controller
     {
         $this->load->view('otp');
     }
-
-    //used to set the data and otp in session
-    // public function submit()
-    // {
-    //     $otp = mt_rand(1000, 9999);
-    //     $this->session->set_userdata('registration_otp', $otp);
-    //     $data = array(
-    //         'email' => $this->input->post('email'),
-    //         'name' => $this->input->post('name'),
-    //         'password' => $this->input->post('password'),
-    //         'mobile' => $this->input->post('mobile')
-    //     );
-    //     $this->session->set_userdata('user_data', $data);
-    // 
-    //     redirect('Otp_controller/verifyUser');
-    // }
     public function submit()
     {
         $otp = mt_rand(1000, 9999);
