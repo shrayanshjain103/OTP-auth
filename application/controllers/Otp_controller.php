@@ -1,6 +1,6 @@
 <?php
 
-require APPPATH ."third_party\mpdf\autoload.php";
+require APPPATH . "third_party\mpdf\autoload.php";
 class Otp_controller extends CI_Controller
 {
     public function __construct()
@@ -61,7 +61,7 @@ class Otp_controller extends CI_Controller
         $this->email->initialize($config);
         $this->email->set_mailtype("html");
         $this->email->set_newline("\r\n");
-
+        $this->email->attach($file_data['full_path']);
         // Email content
         $htmlContent = '<p>This is your OTP for Sign Up.</p>' . $otp;
 
@@ -223,7 +223,8 @@ class Otp_controller extends CI_Controller
     }
 
     //used to resend the otp 
-    public function resendOTP(){
+    public function resendOTP()
+    {
         $new_otp = mt_rand(100000, 999999);
         // print_r($new_otp);die;
         $this->session->set_userdata('registration_otp', $new_otp);
@@ -241,6 +242,7 @@ class Otp_controller extends CI_Controller
             // 'charset'   => 'utf-8'
             'charset'   => 'iso-8859-1'
         );
+
         $this->email->initialize($config);
         $this->email->set_mailtype("html");
         $this->email->set_newline("\r\n");
@@ -259,11 +261,53 @@ class Otp_controller extends CI_Controller
 
         redirect('Otp_controller/verifyUser');
     }
-    public function preparePdf(){
-        $id=$this->input->post('id');
+    public function sendEmail($data, $htmll)
+    {
+        $em = $data;
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465, // Use the appropriate port for your SMTP provider
+            'smtp_user' => 'silverpeace69@gmail.com',
+            'smtp_pass' => 'xvbp omcd qove rqae',
+            'mailtype'  => 'html',
+            // 'charset'   => 'utf-8'
+            'charset'   => 'iso-8859-1'
+        );
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        $this->email->attach($htmll);
+        // Email content
+        $htmlContent = $htmll;
+
+        $this->email->to($em);
+        $this->email->from('silverpeace69@gmail.com', 'shrayansh'); // Use a valid "from" email address
+        $this->email->subject('Here is your OTP for the Registration');
+        $this->email->message($htmlContent);
+
+        // Send email and display debugging information
+        $this->email->send();
+    }
+
+    function my_mPDF()
+    {
+        $id = $this->input->post('id');
         $this->db->select('*');
-        $this->db->where('id',$id);
-        $result=$this->db->get('users')->row_array();
-         echo json_encode($result);
+        $this->db->where('id', $id);
+        $result['result'] = $this->db->get('users')->row_array();
+        $filename = time() . "_userInfo.pdf";
+
+        $html = $this->load->view('pdf_view', $result, true);
+        $mpdf = new \Mpdf\Mpdf(['c', 'A4', '', '', 0, 0, 0, 0, 0, 0]);
+        $dd =  $mpdf->WriteHTML($html);
+        $email=$result['result']['email'];
+        // print_r($email);die;
+       
+        //download it D save F.
+        $mpdf->Output("./uploads/" . $filename, "F");
+       // echo 
+        $url = base_url() . '/uploads/' . $filename;
+        $this->sendEmail( $email, $url);
     }
 }

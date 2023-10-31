@@ -140,14 +140,14 @@
             e.preventDefault;
            var id=$(this).data('id');
            $.ajax({
-              url:"<?php echo base_url()?>Otp_controller/preparePdf",
+              url:"<?php echo base_url()?>Otp_controller/my_mPDF",
               type:"POST",
               dataType:"JSON",
               data:{
                 id:id
               },
              success: function(res){
-                  
+              console.log(res);    
              },
            });
         });
