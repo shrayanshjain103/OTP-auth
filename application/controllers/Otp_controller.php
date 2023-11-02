@@ -140,7 +140,8 @@ class Otp_controller extends CI_Controller
     //used to logout 
     public function logout()
     {
-        $this->session->unset_userdata('user_data'); // Unset the correct session variable
+        // $this->session->unset_userdata('user_data'); // Unset the correct session variable
+        $this->session->sess_destroy(); 
         redirect('Otp_controller/login');
     }
 
