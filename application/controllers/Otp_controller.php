@@ -141,7 +141,7 @@ class Otp_controller extends CI_Controller
     public function logout()
     {
         // $this->session->unset_userdata('user_data'); // Unset the correct session variable
-        $this->session->sess_destroy(); 
+        $this->session->sess_destroy();
         redirect('Otp_controller/login');
     }
 
@@ -266,12 +266,14 @@ class Otp_controller extends CI_Controller
         $htmlContent = $htmll;
 
         $this->email->to($em);
+        // $this->email->cc('shrayanshjain7300@gmail.com');
+        // $this->email->bcc('shrayanshjain18022002@gmail.com');
         $this->email->from('silverpeace69@gmail.com', 'shrayansh'); // Use a valid "from" email address
-        $this->email->subject('Here is your OTP for the Registration');
+        $this->email->subject('Here is your Information Pdf');
         $this->email->message($htmlContent);
 
         // Send email and display debugging information
-        $result=$this->email->send();
+        $result = $this->email->send();
         echo json_encode($result);
     }
 
@@ -282,19 +284,19 @@ class Otp_controller extends CI_Controller
         $this->db->where('id', $id);
         $result['result'] = $this->db->get('users')->row_array();
         $filename = time() . "_userInfo.pdf";
-        $result['result']['status']= $result['result']['status']==0? 'user': 'admin';
+        $result['result']['status'] = $result['result']['status'] == 0 ? 'user' : 'admin';
 
         $html = $this->load->view('pdf_view', $result, true);
         $mpdf = new \Mpdf\Mpdf(['c', 'A4', '', '', 0, 0, 0, 0, 0, 0]);
         $dd =  $mpdf->WriteHTML($html);
-        $email=$result['result']['email'];
-      
+        $email = $result['result']['email'];
+
         // print_r($email);die;
-       
+
         //download it D save F.
         $mpdf->Output("./uploads/" . $filename, "F");
-       // echo 
+        // echo 
         $url = base_url() . '/uploads/' . $filename;
-        $this->sendEmail( $email, $url);
+        $this->sendEmail($email, $url);
     }
 }
