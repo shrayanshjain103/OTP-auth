@@ -26,8 +26,10 @@ class Otp_controller extends CI_Controller
             'email' => $this->input->post('email'),
             'name' => $this->input->post('name'),
             'password' => $this->input->post('password'),
-            'mobile' => $this->input->post('mobile')
+            'mobile' => $this->input->post('mobile'),
+            'file' => $this->input->post('uploadFile'),
         );
+
         $this->session->set_userdata('user_data', $data);
 
         // Update SMTP configuration

@@ -142,6 +142,9 @@
                 <input type="password" name="password" id="password" placeholder="Enter Password" required>
                 <i class="far fa-eye" id="togglePassword" style="position: absolute; right: 44px; margin-top: 16px;"></i>
             </div>
+            <div class="input-box">
+                <input type="file" name="uploadFile" id="uploadFile" placeholder="Upload your File" required>
+            </div>
 
             <div class="input-box">
                 <input type="text" name="mobile" placeholder="Enter Mobile Number" required>
@@ -152,6 +155,7 @@
             <div class="text">
                 <h3>Already have an account? <a href="login" >Login now</a></h3>
             </div>
+            
         </form>
     </div>
     <script>
